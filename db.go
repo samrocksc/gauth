@@ -11,6 +11,9 @@ func Database() *gorm.DB {
 	if err != nil {
 		panic("failed to connect database")
 	}
+
+	// Make sure to not handle structs as plural names
+	db.SingularTable(true)
 	return db
 }
 
