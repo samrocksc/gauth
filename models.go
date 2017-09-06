@@ -1,17 +1,34 @@
 package main
 
 import (
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"time"
 )
 
 type Todo struct {
-	gorm.Model
+	ID        uint `gorm:"primary_key"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt time.Time
 	Title     string `json:"title"`
 	Completed int    `json:"completed"`
 }
 
 type User struct {
-	gorm.Model
-	username string
+	ID          string
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	IsValidated bool
+	IsDeleted   bool
+	Version     string
+	Email       string
+	Password    string
+	Username    string
+}
+
+type TimeToken struct {
+	ID        string
+	UserId    string
+	TokenType string
+	CreatedAt time.Time
+	UsedAt    time.Time
 }

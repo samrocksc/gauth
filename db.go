@@ -7,9 +7,18 @@ import (
 
 func Database() *gorm.DB {
 	//open a db connection
-	db, err := gorm.Open("postgres", "host=localhost user=postgres dbname=gomain sslmode=disable password=postgres")
+	db, err := gorm.Open("postgres", "host=localhost user=postgres dbname=gomain sslmode=disable password=")
 	if err != nil {
 		panic("failed to connect database")
 	}
 	return db
 }
+
+/*
+ *func Migrator() {
+ *  db := Database()
+ *  db.AutoMigrate(
+ *    &Todo{},
+ *  )
+ *}
+ */

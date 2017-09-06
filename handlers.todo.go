@@ -11,7 +11,8 @@ func CreateTodo(c *gin.Context) {
 	completed, _ := strconv.Atoi(c.PostForm("completed"))
 	todo := Todo{Title: c.PostForm("title"), Completed: completed}
 	db := Database()
-	db.Save(&todo)
+	db.NewRecord(&todo)
+	db.Create(&todo)
 	c.JSON(http.StatusCreated, gin.H{"status": http.StatusCreated, "message": "Todo item created successfully!", "resourceId": todo.ID})
 }
 
