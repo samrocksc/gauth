@@ -18,19 +18,6 @@ CREATE TYPE token_type AS ENUM (
   'VALIDATION'
 );
 
-CREATE TABLE IF NOT EXISTS todo (
-  id SERIAL PRIMARY KEY,
-  title TEXT,
-  completed INTEGER,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NULL,
-  deleted_at TIMESTAMPTZ DEFAULT NULL
-);
-
-CREATE TRIGGER updated_at_trigger BEFORE UPDATE
-ON todo FOR EACH ROW EXECUTE PROCEDURE
-updated_at();
-
 CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   username TEXT UNIQUE,
@@ -61,7 +48,6 @@ CREATE TABLE IF NOT EXISTS time_token (
 -- SQL section 'Down' is executed when this migration is rolled back
 DROP TABLE users CASCADE;
 DROP TABLE time_token CASCADE;
-DROP TABLE todo CASCADE;
 DROP TYPE token_type CASCADE;
 DROP EXTENSION "uuid-ossp";
 DROP FUNCTION updated_at() CASCADE;

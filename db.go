@@ -18,12 +18,3 @@ func Database() *gorm.DB {
 	db.LogMode(true)
 	return db
 }
-
-/*
- *func Migrator() {
- *  db := Database()
- *  db.AutoMigrate(
- *    &Todo{},
- *  )
- *}
- */

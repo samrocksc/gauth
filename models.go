@@ -1,18 +1,11 @@
+// models.go - models of structures directly comparable to their counterparts in the migration files
 package main
 
 import (
 	"time"
 )
 
-type Todo struct {
-	ID        uint       `db:"id"`
-	Title     string     `db:"title"`
-	Completed int        `db:"completed"`
-	CreatedAt time.Time  `db:"created_at"`
-	UpdatedAt time.Time  `db:"updated_at"`
-	DeletedAt *time.Time `db:"deleted_at"`
-}
-
+// Users is a struct that is directly comparable to its migration counterpart
 type Users struct {
 	ID          int
 	IsValidated bool
@@ -26,6 +19,7 @@ type Users struct {
 	DeletedAt   *time.Time
 }
 
+// TimeToken is a struct that is directly comparable to its migration counterpart
 type TimeToken struct {
 	ID        string
 	UserId    string

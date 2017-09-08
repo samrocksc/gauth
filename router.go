@@ -1,3 +1,4 @@
+// router.go - sets up the routes for this file.
 package main
 
 import (
@@ -15,13 +16,11 @@ func Router() {
 
 	v1 := router.Group("/auth")
 	{
-		v1.POST("/todo", CreateTodo)
-		v1.GET("/todo", FetchAllTodo)
-		v1.GET("/todo/:id", FetchSingleTodo)
-		v1.PUT("/todo/:id", UpdateTodo)
-		v1.DELETE("/todo/:id", DeleteTodo)
-		v1.POST("/user", CreateUser)
-		v1.GET("/user", GetAllUsers)
+		v1.GET("/user", BrowseUsers)
+		v1.GET("/user/:id", ReadUser)
+		v1.PUT("/user/:id", EditUser)
+		v1.POST("/user", AddUser)
+		v1.DELETE("user/:id", DeleteUser)
 	}
 	router.Run()
 }

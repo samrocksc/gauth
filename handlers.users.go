@@ -1,3 +1,4 @@
+// handlers.go.go - Handles the BREAD operations of a user account
 package main
 
 import (
@@ -7,8 +8,8 @@ import (
 	"net/http"
 )
 
-// Create A User
-func CreateUser(c *gin.Context) {
+// Create A User.
+func AddUser(c *gin.Context) {
 	password := []byte(c.PostForm("password"))
 	fmt.Println(password)
 
@@ -38,7 +39,8 @@ func CreateUser(c *gin.Context) {
 }
 
 // Retrieve All Users
-func GetAllUsers(c *gin.Context) {
+// TODO Needs to be able to browse
+func BrowseUsers(c *gin.Context) {
 	var users []Users
 	var _users []TransformedUsers
 
@@ -61,4 +63,62 @@ func GetAllUsers(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": _users})
+}
+
+// Retrieve Single User
+func ReadUser(c *gin.Context) {
+	var users Users
+	userId := c.Param("id")
+
+	db := Database()
+	db.First(&users, userId)
+
+	if users.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "message": "No user found!"})
+	}
+
+	_users := TransformedUsers{
+		ID:          users.ID,
+		IsValidated: users.IsValidated,
+		Version:     users.Version,
+		Email:       users.Email,
+		Username:    users.Username,
+	}
+	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": _users})
+}
+
+func EditUser(c *gin.Context) {
+	var users Users
+	userId := c.Param("id")
+	db := Database()
+	db.First(&users, userId)
+
+	if users.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "message": "No User Found!"})
+		return
+	}
+
+	db.Model(&users).Where("id = ?", userId).Updates(Users{
+		IsValidated: users.IsValidated,
+		Version:     users.Version,
+		Email:       users.Email,
+		Username:    users.Username,
+	})
+
+	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "message": "User updated successfully!"})
+}
+
+func DeleteUser(c *gin.Context) {
+	var users Users
+	usersId := c.Param("id")
+	db := Database()
+	db.First(&users, usersId)
+
+	if users.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "message": "No User Found!"})
+		return
+	}
+
+	db.Delete(&users)
+	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "message": "User deleted successfully!"})
 }
