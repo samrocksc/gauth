@@ -36,7 +36,10 @@ func FetchAllTodo(c *gin.Context) {
 		} else {
 			completed = false
 		}
-		_todos = append(_todos, TransformedTodo{ID: item.ID, Title: item.Title, Completed: completed})
+		_todos = append(_todos, TransformedTodo{
+			ID:        item.ID,
+			Title:     item.Title,
+			Completed: completed})
 	}
 	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": _todos})
 }

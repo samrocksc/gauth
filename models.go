@@ -13,11 +13,11 @@ type Todo struct {
 	DeletedAt *time.Time `db:"deleted_at"`
 }
 
-type User struct {
-	ID          string
+type Users struct {
+	ID          int
 	IsValidated bool
 	IsDeleted   bool
-	Version     string
+	Version     int
 	Email       string
 	Password    string
 	Username    string
