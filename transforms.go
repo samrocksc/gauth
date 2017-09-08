@@ -5,3 +5,6 @@ type TransformedTodo struct {
 	Title     string `json:"title"`
 	Completed bool   `json:"completed"`
 }
+
+type TransformedUser struct {
+}

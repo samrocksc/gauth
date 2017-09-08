@@ -5,24 +5,25 @@ import (
 )
 
 type Todo struct {
-	ID        uint `gorm:"primary_key"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt time.Time
-	Title     string `json:"title"`
-	Completed int    `json:"completed"`
+	ID        uint       `db:"id"`
+	Title     string     `db:"title"`
+	Completed int        `db:"completed"`
+	CreatedAt time.Time  `db:"created_at"`
+	UpdatedAt time.Time  `db:"updated_at"`
+	DeletedAt *time.Time `db:"deleted_at"`
 }
 
 type User struct {
 	ID          string
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
 	IsValidated bool
 	IsDeleted   bool
 	Version     string
 	Email       string
 	Password    string
 	Username    string
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	DeletedAt   *time.Time
 }
 
 type TimeToken struct {
@@ -30,5 +31,5 @@ type TimeToken struct {
 	UserId    string
 	TokenType string
 	CreatedAt time.Time
-	UsedAt    time.Time
+	UsedAt    *time.Time
 }

@@ -23,8 +23,8 @@ CREATE TABLE IF NOT EXISTS todo (
   title TEXT,
   completed INTEGER,
   created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ,
-  deleted_at TIMESTAMPTZ
+  updated_at TIMESTAMPTZ DEFAULT NULL,
+  deleted_at TIMESTAMPTZ DEFAULT NULL
 );
 
 CREATE TRIGGER updated_at_trigger BEFORE UPDATE
@@ -40,7 +40,8 @@ CREATE TABLE IF NOT EXISTS users (
   is_deleted BOOLEAN DEFAULT false,
   is_validated BOOLEAN DEFAULT false,
   created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ
+  updated_at TIMESTAMPTZ DEFAULT NULL,
+  deleted_at TIMESTAMPTZ DEFAULT NULL
 );
 
 CREATE TRIGGER updated_at_trigger BEFORE UPDATE

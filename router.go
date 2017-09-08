@@ -22,6 +22,7 @@ func Router() {
 		v1.GET("/:id", FetchSingleTodo)
 		v1.PUT("/:id", UpdateTodo)
 		v1.DELETE("/:id", DeleteTodo)
+		v1.POST("/user", CreateUser)
 	}
 	router.Run()
 }
